@@ -44,10 +44,15 @@ namespace Heal_On_Wall
             // Add methods to do custom wall focusing stuff
             self.InsertCustomAction("Focus Start", () =>
             {
-                if (!SaveSettings.equippedCharms[0]) return;
+                if (HeroController.instance.cState.onGround) return;
+                    if (!SaveSettings.equippedCharms[0]) return;
                 // Charm is equipped
 
                 // Remove left ground transitions while focusing
+
+                self.GetAction<Tk2dPlayAnimation>("Focus Start", 15).Enabled = false;
+                self.GetAction<Tk2dPlayAnimation>("Focus Heal", 7).Enabled = false;
+                self.GetAction<Tk2dPlayAnimationWithEvents>("Focus Get Finish", 8).Enabled = false;
                 self.RemoveTransition("Focus Start", "LEFT GROUND");
                 self.RemoveTransition("Focus", "LEFT GROUND");
                 self.RemoveTransition("Focus Left", "LEFT GROUND");
@@ -55,6 +60,7 @@ namespace Heal_On_Wall
             }, 0);
             self.AddCustomAction("Focus Start", () =>
             {
+                if (HeroController.instance.cState.onGround) return;
                 if (!SaveSettings.equippedCharms[0]) return;
                 // Charm is equipped
 
@@ -65,15 +71,20 @@ namespace Heal_On_Wall
             // Add method to revert custom wall focusing stuff
             self.InsertCustomAction("Regain Control", () =>
             {
+                if (HeroController.instance.cState.onGround) return;
                 if (!SaveSettings.equippedCharms[0]) return;
                 // Charm is equipped
 
                 // Re-add left ground transitions while focusing
+                
                 self.AddTransition("Focus Start", "LEFT GROUND", "Focus Cancel");
                 self.AddTransition("Focus", "LEFT GROUND", "Grace Check");
                 self.AddTransition("Focus Left", "LEFT GROUND", "Grace Check 2");
                 self.AddTransition("Focus Right", "LEFT GROUND", "Grace Check 2");
-
+                self.GetAction<Tk2dPlayAnimation>("Focus Heal", 7).Enabled = true;
+                self.GetAction<Tk2dPlayAnimationWithEvents>("Focus Get Finish", 8).Enabled = true;
+                self.GetAction<Tk2dPlayAnimation>("Focus Start", 15).Enabled = true;
+                
                 // Yes gravity after focusing
                 self.gameObject.GetComponent<HeroController>().AffectedByGravity(true);
             }, 0);
@@ -91,6 +102,8 @@ namespace Heal_On_Wall
 
             Log("Initialized");
         }
+
+
 
         public void OnHeroUpdate()
         {
