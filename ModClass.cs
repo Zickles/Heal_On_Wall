@@ -94,7 +94,6 @@ namespace Heal_On_Wall
             Log("Initializing");
             On.PlayMakerFSM.OnEnable += OnFSM;
             On.HeroController.CanFocus += MyCustomFocus;
-            ModHooks.HeroUpdateHook += OnHeroUpdate;
 
             CharmIDs = CharmHelper.AddSprites(Ts.Get(TextureStrings.HOWKey));
 
@@ -105,10 +104,6 @@ namespace Heal_On_Wall
 
 
 
-        public void OnHeroUpdate()
-        {
-            Log(SaveSettings.equippedCharms[0]);
-        }
         private void InitCallbacks()
         {
             ModHooks.GetPlayerBoolHook += OnGetPlayerBoolHook;
