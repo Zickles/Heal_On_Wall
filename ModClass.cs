@@ -9,16 +9,16 @@ using UnityEngine;
 using HutongGames.PlayMaker.Actions;
 using SFCore;
 using GlobalEnums;
-using Satchel.Reflected;
 using SFCore.Generics;
 using System.Collections.Generic;
+using HKMirror.Reflection.SingletonClasses;
 
 namespace Heal_On_Wall
 {
         class Heal_On_Wall : SaveSettingsMod<HOWSettings>
         {
             new public string GetName() => "Heal On Wall";
-            public override string GetVersion() => "1.0.0";
+            public override string GetVersion() => "1.0.2";
             public TextureStrings Ts { get; private set; }
             public List<int> CharmIDs { get; private set; }
 
