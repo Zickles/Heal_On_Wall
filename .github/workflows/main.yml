@@ -1,9 +1,0 @@
-- name: setup-hk
-  # You may pin to the exact commit or the version.
-  # uses: BadMagic100/setup-hk@cdca027319ca93ab61d28df881b41ddc23c71fba
-  uses: BadMagic100/setup-hk@v1.1.2
-  with:
-    # The path where modding API will be installed
-    apiPath: 
-    # The path to a ModDependencies.txt file that specifies mods to be installed from modlinks
-    dependencyFilePath: # optional
